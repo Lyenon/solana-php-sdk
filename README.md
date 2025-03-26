@@ -32,12 +32,12 @@ Forked from the Verze repo:  [verze-app/solana-php-sdk](https://github.com/verze
 You can install the package via composer :
 
 ```bash
-composer require Lyenon/solana-php-sdk
+composer require lyenon/solana-php-sdk
 ```
 ### From this Repository
 
 ```bash
-git clone https://github.com/Attestto-com/solana-php-sdk.git
+git clone https://github.com/Lyenon/solana-php-sdk.git
 
 cd solana-php-sdk
 
@@ -46,8 +46,8 @@ composer install
 ```
 ### With Docker
 
-- [DockerFile](https://github.com/Attestto-com/solana-php-sdk/blob/master/Dockerfile) 
-- [compose-dev.yaml](https://github.com/Attestto-com/solana-php-sdk/blob/master/compose-dev.yaml)
+- [DockerFile](https://github.com/Lyenon/solana-php-sdk/blob/master/Dockerfile) 
+- [compose-dev.yaml](https://github.com/Lyenon/solana-php-sdk/blob/master/compose-dev.yaml)
 
 ```bash
 docker build -t solana-php-sdk .

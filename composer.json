@@ -1,5 +1,5 @@
 {
-    "name": "Lyenon/solana-php-sdk",
+    "name": "lyenon/solana-php-sdk",
     "version": "0.6.1",
     "description": "Solana PHP SDK for interacting with the Solana blockchain",
     "keywords": [
