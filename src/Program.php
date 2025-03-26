@@ -8,7 +8,7 @@ class Program
      * @var SolanaRpcClient
      */
     protected SolanaRpcClient $client;
-    protected mixed $config;
+    protected $config;
 
     public function __construct(SolanaRpcClient $client)
     {

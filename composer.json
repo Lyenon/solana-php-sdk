@@ -1,6 +1,6 @@
 {
     "name": "lyenon/solana-php-sdk",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Solana PHP SDK for interacting with the Solana blockchain",
     "keywords": [
         "attestto",
