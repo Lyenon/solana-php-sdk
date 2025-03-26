@@ -50,23 +50,23 @@ trait SPLTokenInstructions
     }
 
     /**
-     * @param PublicKey $payer
-     * @param PublicKey $associatedToken
-     * @param PublicKey $owner
-     * @param PublicKey $mint
-     * @param Buffer $instructionData
-     * @param string|PublicKey|null $programId
-     * @param string|PublicKey|null $associatedTokenProgramId
+     * @param $payer
+     * @param $associatedToken
+     * @param $owner
+     * @param $mint
+     * @param $instructionData
+     * @param $programId
+     * @param $associatedTokenProgramId
      * @return TransactionInstruction
      */
     public function buildAssociatedTokenAccountInstruction(
-        PublicKey             $payer,
-        PublicKey             $associatedToken,
-        PublicKey             $owner,
-        PublicKey             $mint,
-        Buffer                $instructionData,
-        string|PublicKey|null $programId = new PublicKey(self::TOKEN_PROGRAM_ID),
-        string|PublicKey|null $associatedTokenProgramId = new PublicKey(self::ASSOCIATED_TOKEN_PROGRAM_ID)
+        $payer,
+        $associatedToken,
+        $owner,
+        $mint,
+        $instructionData,
+        $programId,
+        $associatedTokenProgramId
     ): TransactionInstruction
     {
 

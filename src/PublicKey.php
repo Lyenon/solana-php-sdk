@@ -21,7 +21,9 @@ class PublicKey implements HasPublicKey
     protected Buffer $buffer;
 
     /**
-     * @param array|string $bn
+     * PublicKey constructor.
+     * @param $bnORBase58String
+     * @throws InputValidationException
      */
     public function __construct($bnORBase58String)
     {
@@ -130,10 +132,11 @@ class PublicKey implements HasPublicKey
 
     /**
      * Derive a program address from seeds and a program ID.
-     *
      * @param array $seeds
      * @param PublicKey $programId
      * @return PublicKey
+     * @throws InputValidationException
+     * @throws \SodiumException
      */
     public static function createProgramAddress(array $seeds, PublicKey $programId): PublicKey
     {
@@ -184,10 +187,10 @@ class PublicKey implements HasPublicKey
     }
 
     /**
-     *
      * @param array $seeds
      * @param PublicKey $programId
-     * @return array 2 elements, [0] = PublicKey, [1] = integer
+     * @return array
+     * @throws BaseSolanaPhpSdkException
      */
     static function findProgramAddressSync(array $seeds, PublicKey $programId): array
     {
@@ -196,8 +199,10 @@ class PublicKey implements HasPublicKey
 
     /**
      * Check that a pubkey is on the ed25519 curve.
+     * @param $publicKey
+     * @return bool
      */
-    static function isOnCurve(mixed $publicKey): bool
+    static function isOnCurve($publicKey): bool
     {
         try {
             $binaryString = $publicKey instanceof PublicKey
@@ -217,8 +222,6 @@ class PublicKey implements HasPublicKey
     }
 
     /**
-     * Convenience.
-     *
      * @return Base58
      */
     public static function base58(): Base58

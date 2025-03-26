@@ -7,8 +7,6 @@ use Attestto\SolanaPhpSdk\Exceptions\GenericException;
 use Attestto\SolanaPhpSdk\Exceptions\InvalidIdResponseException;
 use Attestto\SolanaPhpSdk\Exceptions\MethodNotFoundException;
 use Attestto\SolanaPhpSdk\Util\Commitment;
-use Illuminate\Http\Client\Response;
-use Psr\Http\Client\ClientExceptionInterface;
 use SodiumException;
 
 /**
@@ -21,6 +19,10 @@ class Connection extends Program
     /**
      * @param string $pubKey
      * @return array
+     * @throws AccountNotFoundException
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
      */
     public function getAccountInfo(string $pubKey): array
     {
@@ -44,20 +46,25 @@ class Connection extends Program
 
     /**
      * @param string $transactionSignature
-     * @return array|null
+     * @return mixed
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
      */
-    public function getConfirmedTransaction(string $transactionSignature): array|null
+    public function getConfirmedTransaction(string $transactionSignature)
     {
         return $this->client->call('getConfirmedTransaction', [$transactionSignature]);
     }
 
     /**
      * NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedTransaction for solana-core v1.6
-     *
      * @param string $transactionSignature
-     * @return array|null
+     * @return mixed
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
      */
-    public function getTransaction(string $transactionSignature): array|null
+    public function getTransaction(string $transactionSignature)
     {
         return $this->client->call('getTransaction', [$transactionSignature]);
     }
@@ -65,8 +72,9 @@ class Connection extends Program
     /**
      * @param Commitment|null $commitment
      * @return array
-     * @throws Exceptions\GenericException|Exceptions\MethodNotFoundException|Exceptions\InvalidIdResponseException
-     * Deprecated: Use getLatestBlockhash instead
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
      */
     public function getRecentBlockhash(?Commitment $commitment = null): array
     {
@@ -74,9 +82,11 @@ class Connection extends Program
     }
 
     /**
-     * @param string|null $commitment
+     * @param Commitment|null $commitment
      * @return array
-     * @throws Exceptions\GenericException|Exceptions\MethodNotFoundException|Exceptions\InvalidIdResponseException|\Psr\Http\Client\ClientExceptionInterface
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
      */
     public function getLatestBlockhash(?Commitment $commitment = null): array
     {
@@ -85,15 +95,14 @@ class Connection extends Program
 
     /**
      * @param Transaction $transaction
-     * @param Keypair[] $signers
+     * @param array $signers
      * @param array $params
-
+     * @return mixed
+     * @throws Exceptions\InputValidationException
      * @throws GenericException
      * @throws InvalidIdResponseException
      * @throws MethodNotFoundException
-     * @throws ClientExceptionInterface
      * @throws SodiumException
-     * TODO Add Support for Versioned TXns
      */
     public function sendTransaction(Transaction $transaction, array $signers, array $params = [])
     {
@@ -115,14 +124,16 @@ class Connection extends Program
     }
 
     /**
-	 * @param Transaction $transaction
-	 * @param Keypair[] $signers
-	 * @param array $params
-	 * @return array|Response
-	 * @throws Exceptions\GenericException
-	 * @throws Exceptions\InvalidIdResponseException
-	 * @throws Exceptions\MethodNotFoundException
-	 */
+     * @param Transaction $transaction
+     * @param array $signers
+     * @param array $params
+     * @return mixed
+     * @throws Exceptions\InputValidationException
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
+     * @throws SodiumException
+     */
 	public function simulateTransaction(Transaction $transaction, array $signers, array $params = [])
 	{
 		$transaction->sign(...$signers);
@@ -140,9 +151,11 @@ class Connection extends Program
 	}
 
     /**
-     * @param string $pubKey
      * @param array $params
      * @return string
+     * @throws GenericException
+     * @throws InvalidIdResponseException
+     * @throws MethodNotFoundException
      */
     public function requestAirdrop(array $params = []): string
     {

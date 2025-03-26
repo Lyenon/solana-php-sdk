@@ -26,24 +26,20 @@ trait SPLTokenActions {
 
     /**
      * @param Connection $connection
-     * @param Signer|Keypair $payer
+     * @param mixed $payer
      * @param PublicKey $mint
      * @param PublicKey $owner
-     * @param boolean $allowOwnerOffCurve
+     * @param bool $allowOwnerOffCurve
      * @param Commitment|null $commitment
-     * @param ConfirmOptions $confirmOptions
-     * @param PublicKey $programId
-     * @param PublicKey $associatedTokenProgramId
-     * @return mixed
+     * @param ConfirmOptions|null $confirmOptions
+     * @return Account
      * @throws AccountNotFoundException
-     * @throws ClientExceptionInterface
-     * @throws InputValidationException
-     * @throws TokenInvalidAccountOwnerError
-     * @throws TokenInvalidMintError
-     * @throws TokenOwnerOffCurveError
      * @throws GenericException
+     * @throws InputValidationException
      * @throws InvalidIdResponseException
      * @throws MethodNotFoundException
+     * @throws TokenInvalidAccountOwnerError
+     * @throws TokenInvalidMintError
      * @throws \SodiumException
      */
     public function getOrCreateAssociatedTokenAccount(
@@ -53,12 +49,11 @@ trait SPLTokenActions {
         PublicKey      $owner,
         bool           $allowOwnerOffCurve = true,
         Commitment     $commitment = null,
-        ConfirmOptions $confirmOptions = null,
-        PublicKey      $programId = new PublicKey(self::TOKEN_PROGRAM_ID),
-        PublicKey      $associatedTokenProgramId = new PublicKey(self::ASSOCIATED_TOKEN_PROGRAM_ID)
+        ConfirmOptions $confirmOptions = null
     ): Account
     {
-
+        $programId = new PublicKey(self::TOKEN_PROGRAM_ID);
+        $associatedTokenProgramId = new PublicKey(self::ASSOCIATED_TOKEN_PROGRAM_ID);
         $associatedToken = $this->getAssociatedTokenAddressSync(
             $mint,
             $owner,

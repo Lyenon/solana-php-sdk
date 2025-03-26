@@ -55,19 +55,20 @@ class SolanaRpcClient
     public UriFactoryInterface $uriFactory;
 
     /**
+     * SolanaRpcClient constructor.
      * @param string $endpoint
      * @param ClientInterface|null $httpClient
      * @param RequestFactoryInterface|null $requestFactory
-     * @param StreamFactoryInterface|Message|null $streamFactory
-     * @param UriFactoryInterface|null $uriFactory
-     * @throws RandomException
+     * @param null $streamFactory
+     * @param null $uriFactory
+     * @throws \Exception
      */
     public function __construct(
         string $endpoint,
         ClientInterface $httpClient = null,
         RequestFactoryInterface $requestFactory = null,
-        StreamFactoryInterface|Message $streamFactory= null ,
-        UriFactoryInterface $uriFactory= null
+        $streamFactory= null ,
+        $uriFactory= null
     ) {
         $this->endpoint = $endpoint ? : self::DEVNET_ENDPOINT;
         $this->randomKey = random_int(0, 99999999);
@@ -80,12 +81,12 @@ class SolanaRpcClient
      * @param string $method
      * @param array $params
      * @param array $headers
-     * @return mixed
+     * @return mixed|null
      * @throws GenericException
      * @throws InvalidIdResponseException
-     * @throws MethodNotFoundException|ClientExceptionInterface
+     * @throws MethodNotFoundException
      */
-    public function call(string $method, array $params = [], array $headers = []): mixed
+    public function call(string $method, array $params = [], array $headers = [])
     {
 
         $body = json_encode($this->buildRpc($method, $params));
@@ -105,7 +106,7 @@ class SolanaRpcClient
         $this->validateResponse($resp_object, $method);
 
 
-        return $resp_object['result'] ?? null;
+        return isset($resp_object['result'])?$resp_object['result']:null;
     }
     /**
      * @param string $method

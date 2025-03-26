@@ -84,9 +84,11 @@ class Buffer implements Countable
     }
 
     /**
+     * @param array $buffers
+     * @return static
      * @throws InputValidationException
      */
-    public static function concat(array $buffers): static
+    public static function concat(array $buffers)
     {
         $data = [];
         foreach ($buffers as $buffer) {
@@ -97,9 +99,11 @@ class Buffer implements Countable
     }
 
     /**
+     * @param array $array
+     * @return static
      * @throws InputValidationException
      */
-    public static function fromArray(array $array): static
+    public static function fromArray(array $array)
     {
         return new static($array);
     }

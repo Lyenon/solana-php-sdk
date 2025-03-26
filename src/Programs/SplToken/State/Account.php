@@ -47,16 +47,27 @@ class Account
     }
 
     /**
+     * @param Connection $connection
+     * @param PublicKey $accountPublicKeyOnbject
+     * @param Commitment|null $commitment
+     * @param null $programId
+     * @return Account
      * @throws AccountNotFoundException
+     * @throws \Attestto\SolanaPhpSdk\Exceptions\GenericException
+     * @throws \Attestto\SolanaPhpSdk\Exceptions\InvalidIdResponseException
+     * @throws \Attestto\SolanaPhpSdk\Exceptions\MethodNotFoundException
      */
     public static function getAccount(
         Connection $connection,
         PublicKey $accountPublicKeyOnbject,
         Commitment $commitment = null,
-        $programId = new PublicKey(self::TOKEN_PROGRAM_ID)
+        $programId = null
     ): Account
     {
         try {
+            if(is_null($programId)){
+                $programId = new PublicKey(self::TOKEN_PROGRAM_ID);
+            }
             $info = $connection->getAccountInfo($accountPublicKeyOnbject, $commitment);
             self::$address = $accountPublicKeyOnbject;
             self::$tlvData = $info['data'];

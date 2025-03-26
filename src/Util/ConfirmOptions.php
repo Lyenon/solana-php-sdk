@@ -2,6 +2,8 @@
 
 namespace Attestto\SolanaPhpSdk\Util;
 
+use \Attestto\SolanaPhpSdk\Util\Commitment;
+
 /**
  * @property bool $skipPreflight
  * @property Commitment $commitment
@@ -18,23 +20,16 @@ class ConfirmOptions
     public int $minContextSlot;
 
     /**
-     * @param bool $skipPreflight
-     * @param Commitment|null $commitment
-     * @param Commitment|null $preflightCommitment
-     * @param int $maxRetries
-     * @param int $minContextSlot
+     * ConfirmOptions constructor.
+     * @param false $skipPreflight
      */
     public function __construct(
-        bool $skipPreflight = false,
-        Commitment $commitment = new Commitment('confirmed'),
-        Commitment $preflightCommitment = new Commitment('confirmed'),
-        int $maxRetries = 0,
-        int $minContextSlot = 0
+        $skipPreflight = false
     ) {
         $this->skipPreflight = $skipPreflight;
-        $this->commitment = $commitment;
-        $this->preflightCommitment = $preflightCommitment;
-        $this->maxRetries = $maxRetries;
-        $this->minContextSlot = $minContextSlot;
+        $this->commitment = new Commitment('confirmed');
+        $this->preflightCommitment = new Commitment('confirmed');
+        $this->maxRetries = 0;
+        $this->minContextSlot = 0;
     }
 }

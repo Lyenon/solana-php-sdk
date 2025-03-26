@@ -13,7 +13,9 @@ class Commitment
     protected string $commitmentLevel;
 
     /**
+     * Commitment constructor.
      * @param string $commitmentLevel
+     * @throws InputValidationException
      */
     public function __construct(string $commitmentLevel)
     {

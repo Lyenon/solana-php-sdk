@@ -29,10 +29,12 @@ class Message
     private array $indexToProgramIds;
 
     /**
+     * Message constructor.
      * @param MessageHeader $header
-     * @param array<string> $accountKeys
+     * @param array $accountKeys
      * @param string $recentBlockhash
-     * @param array<CompiledInstruction> $instructions
+     * @param array $instructions
+     * @throws InputValidationException
      */
     public function __construct(
         MessageHeader $header,
@@ -84,7 +86,7 @@ class Message
     }
 
     /**
-     * @return array<PublicKey>
+     * @return array
      */
     public function programIds(): array
     {
@@ -103,6 +105,7 @@ class Message
 
     /**
      * @return string
+     * @throws InputValidationException
      */
     public function serialize(): string
     {
@@ -121,6 +124,7 @@ class Message
 
     /**
      * @return array
+     * @throws InputValidationException
      */
     protected function encodeMessage(): array
     {
@@ -163,8 +167,9 @@ class Message
     }
 
     /**
-     * @param array|Buffer $rawMessage
+     * @param $rawMessage
      * @return Message
+     * @throws InputValidationException
      */
     public static function from($rawMessage): Message
     {

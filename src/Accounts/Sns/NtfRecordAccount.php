@@ -1,6 +1,6 @@
 <?php
 
-namespace Attestto\SolanaPhpSdk\Accounts;
+namespace Attestto\SolanaPhpSdk\Accounts\Sns;
 
 use Attestto\SolanaPhpSdk\Accounts\Did\VerificationMethodStruct;
 use Attestto\SolanaPhpSdk\Accounts\Did\ServiceStruct;

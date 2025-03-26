@@ -122,14 +122,12 @@ trait Instructions {
 
 
     /**
-     * Updates an instruction.
-     *
-     * @param PublicKey $nameProgramId The public key of the name program.
-     * @param PublicKey $nameAccountKey The public key of the name account.
-     * @param  $offset The offset.
-     * @param Buffer $input_data The input data.
-     * @param PublicKey $nameUpdateSigner The public key of the name update signer.
-     * @return TransactionInstruction The created transaction instruction.
+     * @param PublicKey $nameProgramId
+     * @param PublicKey $nameAccountKey
+     * @param Buffer $offset
+     * @param Buffer $input_data
+     * @param PublicKey $nameUpdateSigner
+     * @return TransactionInstruction
      * @throws InputValidationException
      */
     function updateInstruction(
